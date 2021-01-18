@@ -16,18 +16,18 @@ import SensorsAnalyticsSDK
 }
 
 
-class BaseEvent: NSObject, EventProtocl {
+public class BaseEvent: NSObject, EventProtocl {
     var name: NSString = ""
     
     var props: NSDictionary?
     
-    func send() {
+    public func send() {
         DataAnlyticsManager.anlytic.wsxc_trachEventWith(self)
     }
 }
 
-class LoginEvent: BaseEvent {
-    override func send() {
+public class LoginEvent: BaseEvent {
+    public override func send() {
         print("trach_login")
         DataAnlyticsManager.anlytic.wsxc_login(loginId, withProperties: self.props as? [AnyHashable : Any])
         DataAnlyticsManager.anlytic.wsxc_trachEventWith(self)
@@ -53,13 +53,13 @@ class LoginEvent: BaseEvent {
     var loginId: String = ""
     
     @objc init(method: String, shop_name: String, loginId: String) {
-        login_method = method
+        self.login_method = method
         self.loginId = loginId
         self.shop_name = shop_name
     }
 }
 
-class SearchEvent: BaseEvent {
+public class SearchEvent: BaseEvent {
     
     override var name: NSString {
         get {
@@ -87,7 +87,7 @@ class SearchEvent: BaseEvent {
     @objc var use_digitalwatermark: Bool = false
 }
 
-class ErrorPagesEvent: BaseEvent {
+public class ErrorPagesEvent: BaseEvent {
     
     override var name: NSString {
         get {
@@ -115,7 +115,7 @@ class ErrorPagesEvent: BaseEvent {
     @objc var loadtime: String?
 }
 
-class DigitalWatermarkAddEvent: BaseEvent {
+public class DigitalWatermarkAddEvent: BaseEvent {
     override var name: NSString {
         get {
             return "digital_watermark_add"
@@ -144,18 +144,18 @@ class DigitalWatermarkAddEvent: BaseEvent {
     }
     
     //加水印场景
-    @objc var add_scene: String = "分享"
-    @objc var image_total: Int = 0
-    @objc var add_success: Int = 0
-    @objc var add_error_timeout: Int = 0
-    @objc var add_error_exception: Int = 0
-    @objc var add_error_wh_limit: Int = 0
-    @objc var add_error_failed: Int = 0
-    @objc var add_error_other: Int = 0
-    @objc var share_time: Int = 0
-    @objc var add_time: Int = 0
-    @objc var fail_image_url: String = ""
-    @objc var get_dw_code: Bool = true
+    @objc public var add_scene: String = "分享"
+    @objc public var image_total: Int = 0
+    @objc public var add_success: Int = 0
+    @objc public var add_error_timeout: Int = 0
+    @objc public var add_error_exception: Int = 0
+    @objc public var add_error_wh_limit: Int = 0
+    @objc public var add_error_failed: Int = 0
+    @objc public var add_error_other: Int = 0
+    @objc public var share_time: Int = 0
+    @objc public var add_time: Int = 0
+    @objc public var fail_image_url: String = ""
+    @objc public var get_dw_code: Bool = true
 
     
     var event_switch: Bool = true
@@ -177,7 +177,7 @@ class DigitalWatermarkAddEvent: BaseEvent {
         return false
     }()
     
-    override func send() {
+    public override func send() {
         if !event_switch {
             return
         }
@@ -185,22 +185,22 @@ class DigitalWatermarkAddEvent: BaseEvent {
         print("===============:\(self)")
     }
     
-    @objc func configSence(_ scene: String, total: Int) -> Void {
+    @objc public func configSence(_ scene: String, total: Int) -> Void {
         self.add_scene = scene
         self.image_total = total
     }
     
-    @objc func taskStart() {
+    @objc public func taskStart() {
         pre_time = Int64(Date().timeIntervalSince1970 * 1000)
     }
     
-    @objc func taskEnd() {
+    @objc public func taskEnd() {
         let cur = Int64(Date().timeIntervalSince1970 * 1000)
         let coast = cur - pre_time
         self.share_time += Int(coast)
     }
     
-    @objc func handleRes(res: Int) {
+    @objc public func handleRes(res: Int) {
         if res == 0 {
             add_success += 1
         }
@@ -218,13 +218,13 @@ class DigitalWatermarkAddEvent: BaseEvent {
         }
     }
     
-    override var description: String {
+    public override var description: String {
         return self.props!.reduce("") { (res, item) -> String in
             return "\(res)\n\(item.key):\(item.value)"
         }
     }
     
-    override var debugDescription: String {
+    public override var debugDescription: String {
         return self.props!.reduce("") { (res, item) -> String in
             return "\(res) + \n + \(item.key):\(item.value)"
         }
@@ -232,7 +232,7 @@ class DigitalWatermarkAddEvent: BaseEvent {
     
 }
 
-class EditTagsEvent: BaseEvent {
+public class EditTagsEvent: BaseEvent {
 
     override var name: NSString {
         get {
@@ -258,7 +258,7 @@ class EditTagsEvent: BaseEvent {
     }
 }
 
-class ShareEvent: BaseEvent {
+public class ShareEvent: BaseEvent {
     
     override var name: NSString {
         get {
@@ -291,7 +291,7 @@ class ShareEvent: BaseEvent {
     
 }
 
-class PushViewEvent: BaseEvent {
+public class PushViewEvent: BaseEvent {
     
     override var props: NSDictionary? {
         get {
@@ -323,7 +323,7 @@ class PushViewEvent: BaseEvent {
     
 }
 
-class PushClickEvnet: BaseEvent {
+public class PushClickEvnet: BaseEvent {
     
     override var props: NSDictionary? {
         get {
@@ -355,7 +355,7 @@ class PushClickEvnet: BaseEvent {
     @objc var push_aim: String?
 }
 
-class PrintDeliverEvent: BaseEvent {
+public class PrintDeliverEvent: BaseEvent {
     
     override var name: NSString {
         get {
@@ -391,7 +391,7 @@ class PrintDeliverEvent: BaseEvent {
     }
 }
 
-class AddImgEvent: BaseEvent {
+public class AddImgEvent: BaseEvent {
     override var name: NSString {
         get {
             return "add_img"
@@ -431,7 +431,7 @@ class AddImgEvent: BaseEvent {
     
 }
 
-class ProfileEvent: BaseEvent {
+public class ProfileEvent: BaseEvent {
     override var name: NSString {
         get {
             return "profile"
@@ -447,7 +447,7 @@ class ProfileEvent: BaseEvent {
     }
 }
 
-class BaseClickEvent: BaseEvent {
+public class BaseClickEvent: BaseEvent {
     override var name: NSString {
         get {
             return eventName! as NSString
@@ -461,9 +461,9 @@ class BaseClickEvent: BaseEvent {
         }
         set {}
     }
-    @objc var eventName: String!
-    @objc var title: String!
-    @objc init(title: String) {
+    @objc public var eventName: String!
+    @objc public var title: String!
+    @objc public init(title: String) {
         super.init()
         if title == "" {
             self.title = SensorsAnalyticsSDK.sharedInstance()?.sensorsdata_title() ?? ""
@@ -474,22 +474,22 @@ class BaseClickEvent: BaseEvent {
     
 }
 
-class ClickEnterPriceManagemEvent: BaseClickEvent {
+public class ClickEnterPriceManagemEvent: BaseClickEvent {
     
-    override init(title: String) {
+    override public init(title: String) {
         super.init(title: title)
         self.eventName = "enter_price_management"
     }
 }
 
-class ClickSelectTagEvent: BaseClickEvent {
-    override init(title: String) {
+public class ClickSelectTagEvent: BaseClickEvent {
+    override public init(title: String) {
         super.init(title: title)
         self.eventName = "select_tag"
     }
 }
 
-class ClickWhoCanSeeEvent: BaseClickEvent {
+public class ClickWhoCanSeeEvent: BaseClickEvent {
     override var props: NSDictionary? {
         get {
             return ["wsxc_title": title!,
@@ -498,14 +498,14 @@ class ClickWhoCanSeeEvent: BaseClickEvent {
         set {}
     }
     
-    @objc var price_type: String?
-    override init(title: String) {
+    @objc public var price_type: String?
+    override public init(title: String) {
         super.init(title: title)
         self.eventName = "who_can_see"
     }
 }
 
-class ClickExpandProductCharacterEvent: BaseClickEvent {
+public class ClickExpandProductCharacterEvent: BaseClickEvent {
     override var props: NSDictionary? {
         get {
             return ["wsxc_title": title!,
@@ -514,45 +514,45 @@ class ClickExpandProductCharacterEvent: BaseClickEvent {
         set {}
     }
     
-    @objc var open_or_not: Bool = false
-    override init(title: String) {
+    @objc public var open_or_not: Bool = false
+    override public init(title: String) {
         super.init(title: title)
         self.eventName = "is_expand_product_character"
     }
 }
 
 
-class ClickShareProductEvent: BaseClickEvent {
-    override init(title: String) {
+public class ClickShareProductEvent: BaseClickEvent {
+    override public init(title: String) {
         super.init(title: title)
         self.eventName = "share_product"
     }
 }
 
-class ClickViewProductDetailEvent: BaseClickEvent {
-    override init(title: String) {
+public class ClickViewProductDetailEvent: BaseClickEvent {
+    override public init(title: String) {
         super.init(title: title)
         self.eventName = "view_product_details"
     }
 }
 
-class ClickAddToShoppingCartEvent: BaseClickEvent {
-    override init(title: String) {
+public class ClickAddToShoppingCartEvent: BaseClickEvent {
+    override public init(title: String) {
         super.init(title: title)
         self.eventName = "add_to_shopping_cart"
     }
 }
 
-class ClickEnterProductEvent: BaseClickEvent {
-    override init(title: String) {
+public class ClickEnterProductEvent: BaseClickEvent {
+    override public init(title: String) {
         super.init(title: title)
         self.eventName = "enter_product"
     }
 }
 
-class ClickShareProfileEvent: BaseClickEvent {
+public class ClickShareProfileEvent: BaseClickEvent {
     
-    @objc var share_entrance: String?
+    @objc public var  share_entrance: String?
     override var props: NSDictionary? {
         get {
             return ["share_entrance": share_entrance ?? ""];
@@ -561,14 +561,14 @@ class ClickShareProfileEvent: BaseClickEvent {
             
         }
     }
-    @objc init(title: String, share_entrance: String) {
+    @objc public init(title: String, share_entrance: String) {
         super.init(title: title)
         self.share_entrance = share_entrance
         self.eventName = "click_share_profile"
     }
 }
 
-class ShareProfileEvent: BaseEvent {
+public class ShareProfileEvent: BaseEvent {
     override var name: NSString {
         get {
             return "share_profile"
@@ -583,17 +583,17 @@ class ShareProfileEvent: BaseEvent {
         }
         set {}
     }
-    @objc var profile_share_method: String?
-    @objc var share_entrance: String?
+    @objc public var profile_share_method: String?
+    @objc public var share_entrance: String?
     
-    @objc static func qrShareProfile(with method: String) -> ShareProfileEvent{
+    @objc static public func qrShareProfile(with method: String) -> ShareProfileEvent{
         let share = ShareProfileEvent.init()
         share.profile_share_method = method
         share.share_entrance = "QRcode按钮"
         return share
     }
     
-    @objc static func personShareProfile(with method: String) -> ShareProfileEvent{
+    @objc static public func personShareProfile(with method: String) -> ShareProfileEvent{
         let share = ShareProfileEvent.init()
         share.profile_share_method = method
         share.share_entrance = "分享按钮"
@@ -601,14 +601,14 @@ class ShareProfileEvent: BaseEvent {
     }
 }
 
-class ClickCatalogueAndTagEvent: BaseClickEvent {
+public class ClickCatalogueAndTagEvent: BaseClickEvent {
     override init(title: String) {
         super.init(title: title)
         self.eventName = "catalogue_and_tag"
     }
 }
 
-class ClickContactTaEvent: BaseClickEvent {
+public class ClickContactTaEvent: BaseClickEvent {
     override var props: NSDictionary? {
         get {
             return ["contact_type": contact_type ?? ""];
@@ -624,14 +624,14 @@ class ClickContactTaEvent: BaseClickEvent {
     }
 }
 
-class ClickForwardALotEvent: BaseClickEvent {
+public class ClickForwardALotEvent: BaseClickEvent {
     override init(title: String) {
         super.init(title: title)
         self.eventName = "forward_a_lot"
     }
 }
 
-class NetworkDetectionEvent: BaseEvent {
+public class NetworkDetectionEvent: BaseEvent {
     override var props: NSDictionary? {
         get {
             return ["is_LocalDNS": is_LocalDNS,
@@ -649,12 +649,12 @@ class NetworkDetectionEvent: BaseEvent {
         set {}
     }
     
-    @objc var is_LocalDNS: Bool = false
-    @objc var is_Ping: Bool = false
-    @objc var is_Traceroute: Bool = false
+    @objc public var is_LocalDNS: Bool = false
+    @objc public var is_Ping: Bool = false
+    @objc public var is_Traceroute: Bool = false
 }
 
-class DnsFixedEvent: BaseEvent {
+public class DnsFixedEvent: BaseEvent {
     override var props: NSDictionary? {
         get {
             return ["is_implement": is_implement,
@@ -671,7 +671,7 @@ class DnsFixedEvent: BaseEvent {
         set {}
     }
     
-    @objc var is_implement: Bool = true
-    @objc var is_success: Bool = false
+    @objc public var is_implement: Bool = true
+    @objc public var is_success: Bool = false
 }
 

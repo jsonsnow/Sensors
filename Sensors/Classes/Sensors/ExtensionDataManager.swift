@@ -9,10 +9,10 @@
 import Foundation
 
 
-class ExtensionDataManager: NSObject {
+public class ExtensionDataManager: NSObject {
     let sensorsData: SAAppExtensionDataManager = SAAppExtensionDataManager.sharedInstance()
-    @objc static let extensionData: ExtensionDataManager = ExtensionDataManager.init()
-    @objc static var group_identifier_string: String {
+    @objc public static let extensionData: ExtensionDataManager = ExtensionDataManager.init()
+    @objc public static var group_identifier_string: String {
         let bundleId = Bundle.main.bundleIdentifier ?? ""
         var group = ""
         if bundleId.contains("Extension") || bundleId.contains("WGKeyBoard") {
@@ -27,7 +27,7 @@ class ExtensionDataManager: NSObject {
     }
 
     @discardableResult
-    @objc func writeEvent(_ eventName: String!, properties: [AnyHashable : Any]!, groupIdentifier: String!) -> Bool {
+    @objc public func writeEvent(_ eventName: String!, properties: [AnyHashable : Any]!, groupIdentifier: String!) -> Bool {
         return sensorsData.writeEvent(eventName, properties: properties, groupIdentifier: groupIdentifier)
     }
 }
