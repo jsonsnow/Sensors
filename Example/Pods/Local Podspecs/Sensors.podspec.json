@@ -1,0 +1,33 @@
+{
+  "name": "Sensors",
+  "version": "0.1.0",
+  "summary": "A short description of Sensors.",
+  "description": "TODO: Add long description of the pod here.",
+  "homepage": "https://github.com/jsonsnow/Sensors",
+  "license": {
+    "type": "MIT",
+    "file": "LICENSE"
+  },
+  "authors": {
+    "jsonsnow": "1183010734@qq.com"
+  },
+  "source": {
+    "git": "https://github.com/jsonsnow/Sensors.git",
+    "tag": "0.1.0"
+  },
+  "platforms": {
+    "ios": "9.0"
+  },
+  "source_files": "Sensors/Classes/**/*",
+  "dependencies": {
+    "WGCommon": [
+
+    ],
+    "WGNet": [
+
+    ],
+    "SensorsAnalyticsSDK": [
+      "~> 2.1.6"
+    ]
+  }
+}

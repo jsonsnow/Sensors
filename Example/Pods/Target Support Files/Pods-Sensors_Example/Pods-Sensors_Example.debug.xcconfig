@@ -1,0 +1,12 @@
+ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES
+FRAMEWORK_SEARCH_PATHS = $(inherited) "${PODS_CONFIGURATION_BUILD_DIR}/Alamofire" "${PODS_CONFIGURATION_BUILD_DIR}/Masonry" "${PODS_CONFIGURATION_BUILD_DIR}/Moya" "${PODS_CONFIGURATION_BUILD_DIR}/Result" "${PODS_CONFIGURATION_BUILD_DIR}/Sensors" "${PODS_CONFIGURATION_BUILD_DIR}/SensorsAnalyticsSDK" "${PODS_CONFIGURATION_BUILD_DIR}/WGCommon" "${PODS_CONFIGURATION_BUILD_DIR}/WGNet"
+GCC_PREPROCESSOR_DEFINITIONS = $(inherited) COCOAPODS=1
+HEADER_SEARCH_PATHS = $(inherited) "${PODS_CONFIGURATION_BUILD_DIR}/Alamofire/Alamofire.framework/Headers" "${PODS_CONFIGURATION_BUILD_DIR}/Masonry/Masonry.framework/Headers" "${PODS_CONFIGURATION_BUILD_DIR}/Moya/Moya.framework/Headers" "${PODS_CONFIGURATION_BUILD_DIR}/Result/Result.framework/Headers" "${PODS_CONFIGURATION_BUILD_DIR}/Sensors/Sensors.framework/Headers" "${PODS_CONFIGURATION_BUILD_DIR}/SensorsAnalyticsSDK/SensorsAnalyticsSDK.framework/Headers" "${PODS_CONFIGURATION_BUILD_DIR}/WGCommon/WGCommon.framework/Headers" "${PODS_CONFIGURATION_BUILD_DIR}/WGNet/WGNet.framework/Headers"
+LD_RUNPATH_SEARCH_PATHS = $(inherited) '@executable_path/Frameworks' '@loader_path/Frameworks'
+OTHER_LDFLAGS = $(inherited) -l"icucore" -l"sqlite3" -l"z" -framework "Alamofire" -framework "CoreGraphics" -framework "CoreMotion" -framework "CoreTelephony" -framework "Foundation" -framework "Masonry" -framework "Moya" -framework "QuartzCore" -framework "Result" -framework "Sensors" -framework "SensorsAnalyticsSDK" -framework "SystemConfiguration" -framework "UIKit" -framework "WGCommon" -framework "WGNet"
+OTHER_SWIFT_FLAGS = $(inherited) -D COCOAPODS
+PODS_BUILD_DIR = ${BUILD_DIR}
+PODS_CONFIGURATION_BUILD_DIR = ${PODS_BUILD_DIR}/$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)
+PODS_PODFILE_DIR_PATH = ${SRCROOT}/.
+PODS_ROOT = ${SRCROOT}/Pods
+USE_RECURSIVE_SCRIPT_INPUTS_IN_SCRIPT_PHASES = YES

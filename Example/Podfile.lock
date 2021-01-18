@@ -1,0 +1,61 @@
+PODS:
+  - Alamofire (4.9.1)
+  - FBSnapshotTestCase (2.1.4):
+    - FBSnapshotTestCase/SwiftSupport (= 2.1.4)
+  - FBSnapshotTestCase/Core (2.1.4)
+  - FBSnapshotTestCase/SwiftSupport (2.1.4):
+    - FBSnapshotTestCase/Core
+  - Masonry (1.0.2)
+  - Moya (13.0.1):
+    - Moya/Core (= 13.0.1)
+  - Moya/Core (13.0.1):
+    - Alamofire (~> 4.1)
+    - Result (~> 4.1)
+  - Result (4.1.0)
+  - Sensors (0.1.0):
+    - SensorsAnalyticsSDK (~> 2.1.6)
+    - WGCommon
+    - WGNet
+  - SensorsAnalyticsSDK (2.1.17):
+    - SensorsAnalyticsSDK/Core (= 2.1.17)
+  - SensorsAnalyticsSDK/Core (2.1.17)
+  - WGCommon (0.1.1):
+    - Masonry (~> 1.0.1)
+  - WGNet (0.1.2):
+    - Moya
+
+DEPENDENCIES:
+  - FBSnapshotTestCase (~> 2.1.4)
+  - Sensors (from `../`)
+
+SPEC REPOS:
+  https://github.com/CocoaPods/Specs.git:
+    - Alamofire
+    - Masonry
+    - Moya
+    - Result
+    - SensorsAnalyticsSDK
+  https://github.com/jsonsnow/CLSpces.git:
+    - WGCommon
+    - WGNet
+  trunk:
+    - FBSnapshotTestCase
+
+EXTERNAL SOURCES:
+  Sensors:
+    :path: "../"
+
+SPEC CHECKSUMS:
+  Alamofire: 85e8a02c69d6020a0d734f6054870d7ecb75cf18
+  FBSnapshotTestCase: 094f9f314decbabe373b87cc339bea235a63e07a
+  Masonry: 7c429b56da9d4ee0bbb3ed77a5ea710d6a5df39e
+  Moya: f4a4b80ff2f8a4ffc208dfb31cd91636622fee6e
+  Result: bd966fac789cc6c1563440b348ab2598cc24d5c7
+  Sensors: 90ca68124a5a76aaae2afce53a0293f3ed065067
+  SensorsAnalyticsSDK: 67b886cc8527627d7c950146cd652abb0098afd0
+  WGCommon: c125002a52839e564338543e0fa60e3ec3941833
+  WGNet: 1bff3216ff85a35707c2044308e06dad5933ae52
+
+PODFILE CHECKSUM: c0b7df4855821ec0a20aae5eb0fe82e35a15b0a6
+
+COCOAPODS: 1.9.3

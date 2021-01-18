@@ -1,0 +1,6 @@
+framework module WGCommon {
+  umbrella header "WGCommon-umbrella.h"
+
+  export *
+  module * { export * }
+}

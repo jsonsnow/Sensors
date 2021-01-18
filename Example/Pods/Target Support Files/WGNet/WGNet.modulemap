@@ -1,0 +1,6 @@
+framework module WGNet {
+  umbrella header "WGNet-umbrella.h"
+
+  export *
+  module * { export * }
+}
