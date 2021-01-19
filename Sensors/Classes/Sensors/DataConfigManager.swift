@@ -104,18 +104,18 @@ let sensors_view_ctrs = [
 let kjs_isVip = "js_isVip"
 
 //神策数据埋点配置类
-class DataConfigManager: NSObject {
+public class DataConfigManager: NSObject {
 
     //MARK: -- props
     
     
     //static let config: DataConfigManager = DataConfigManager.init(callback: <#T##DataConfigManager.DataCallback?##DataConfigManager.DataCallback?##() -> ()#>)
-    @objc var sensors_is_vip: NSNumber? {
+    @objc public var sensors_is_vip: NSNumber? {
         willSet {
             PreferenceTool.setValueInGroup(newValue ?? NSNumber.init(value: false), key: kjs_isVip)
         }
     }
-    typealias DataCallback = (_ data: [String: Any]) -> ()
+    public typealias DataCallback = (_ data: [String: Any]) -> ()
     var callback: DataCallback?
     var data: [String: Any]! {
         willSet {
@@ -187,9 +187,9 @@ class DataConfigManager: NSObject {
     }
     
     func loadData() -> Void {
-        NetLayer.net.albumRequst(path: ConfigApi.sensorConfig.path(), params: ["act":"get_sensor_config"]) { (data) in
+        NetLayer.net.albumRequst(path: ConfigApi.sensorConfig.path(), params: ["act":"get_sensors_config"]) { (data) in
             if data.isSuccess {
-                let response = data.responseData as? [String: Any]
+                let response = data.result as? [String: Any]
                 if let result = response {
                     let dict = result as NSDictionary
                     self.data = result

@@ -8,88 +8,88 @@
 
 import UIKit
 
-class DataAnlyticsManager: NSObject {
+public class DataAnlyticsManager: NSObject {
     
     var sensors: SensorsAnalyticsSDK!
-    @objc static let anlytic: DataAnlyticsManager = DataAnlyticsManager.init()
-    @objc var anonymousId: String {
+    @objc public static let anlytic: DataAnlyticsManager = DataAnlyticsManager.init()
+    @objc public var anonymousId: String {
         return sensors.anonymousId()
     }
     
-    @objc var config: DataConfigManager!
+    @objc public var config: DataConfigManager!
     
-    override init() {
+    @objc override public init() {
         super.init()
     }
     
     
-    @objc func wsxc_ignoreAutoTrackViewControllers(_ controllers: [String]) {
+    @objc public func wsxc_ignoreAutoTrackViewControllers(_ controllers: [String]) {
         sensors.ignoreAutoTrackViewControllers(controllers)
     }
     
-    @objc func wsxc_ignoreViewType(_ aClass: AnyClass) {
+    @objc public func wsxc_ignoreViewType(_ aClass: AnyClass) {
         sensors.ignoreViewType(aClass)
     }
     
-    @objc func wsxc_isViewControllerIgnored(_ viewController: UIViewController) -> Bool {
+    @objc public func wsxc_isViewControllerIgnored(_ viewController: UIViewController) -> Bool {
         return sensors.isViewControllerIgnored(viewController)
     }
     
-    @objc func wsxc_trackInstallation(_ event: String, withProperties propertyDict: [AnyHashable : Any]?) {
+    @objc public func wsxc_trackInstallation(_ event: String, withProperties propertyDict: [AnyHashable : Any]?) {
         sensors.trackInstallation(event, withProperties: propertyDict)
     }
     
-    @objc func wsxc_login(_ loginId: String) {
+    @objc public func wsxc_login(_ loginId: String) {
         sensors.login(loginId)
     }
     
-    @objc func wsxc_login(_ loginId: String, withProperties properties: [AnyHashable : Any]?) {
+    @objc public func wsxc_login(_ loginId: String, withProperties properties: [AnyHashable : Any]?) {
         sensors.login(loginId, withProperties: properties)
     }
     
-    @objc func wsxc_logout() {
+    @objc public func wsxc_logout() {
         sensors.logout()
     }
     
-    @objc func wsxc_libVersion() -> String {
+    @objc public func wsxc_libVersion() -> String {
         return sensors.libVersion()
     }
     
-    @objc func wsxc_registersensorsProperties(_ propertyDict: [AnyHashable : Any]) {
+    @objc public func wsxc_registersensorsProperties(_ propertyDict: [AnyHashable : Any]) {
         sensors.registerSuperProperties(propertyDict)
     }
     
-    @objc func wsxc_registerDynamicsensorsProperties(_ dynamicsensorsProperties: @escaping () -> [String : Any]) {
+    @objc public func wsxc_registerDynamicsensorsProperties(_ dynamicsensorsProperties: @escaping () -> [String : Any]) {
         sensors.registerDynamicSuperProperties(dynamicsensorsProperties)
        
     }
     
     //MARK: -- 打通app与h5
-    @objc func showUpWebView(_ webView: Any, with request: URLRequest) -> Bool {
+    @objc public func showUpWebView(_ webView: Any, with request: URLRequest) -> Bool {
         return sensors.showUpWebView(webView, with: request)
     }
     
-    @objc func showUpWebView(_ webView: Any, with request: URLRequest, andProperties propertyDict: [AnyHashable : Any]?) -> Bool {
+    @objc public func showUpWebView(_ webView: Any, with request: URLRequest, andProperties propertyDict: [AnyHashable : Any]?) -> Bool {
         return sensors.showUpWebView(webView, with: request, andProperties: propertyDict)
     }
     
     
     //MARK: -- 事件追踪
-    @objc func wsxc_track(_ event: String) {
+    @objc public func wsxc_track(_ event: String) {
         if !self.config.canTrackEvent(event) {
             return
         }
         sensors.track(event)
     }
     
-    @objc func wsxc_track(_ event: String, withProperties propertyDict: [AnyHashable : Any]?) {
+    @objc public func wsxc_track(_ event: String, withProperties propertyDict: [AnyHashable : Any]?) {
         if !self.config.canTrackEvent(event) {
             return
         }
         sensors.track(event, withProperties: propertyDict)
     }
     
-    @objc func wsxc_trackEventFromExtension(withGroupIdentifier groupIdentifier: String, completion: @escaping (String, [Any]) -> Void) {
+    @objc public func wsxc_trackEventFromExtension(withGroupIdentifier groupIdentifier: String, completion: @escaping (String, [Any]) -> Void) {
         if !self.config.canTrackEvent("typewriting_click") {
             return
         }
@@ -97,7 +97,7 @@ class DataAnlyticsManager: NSObject {
     }
     
     //MARK: -- TRACH EventProtocls
-    func wsxc_trachEventWith(_ event: EventProtocl) -> Void {
+    public func wsxc_trachEventWith(_ event: EventProtocl) -> Void {
         self.wsxc_track(event.name as String, withProperties: event.props as? [AnyHashable : Any])
     }
     
@@ -105,7 +105,7 @@ class DataAnlyticsManager: NSObject {
     //MARK:
     
    //MARK: -- launch
-    @objc func launch(_ launchOptions: [AnyHashable: Any]?, sensors_url: String) -> Void {
+    @objc public func launch(_ launchOptions: [AnyHashable: Any]?, sensors_url: String) -> Void {
         let options = SAConfigOptions.init(serverURL: sensors_url, launchOptions: launchOptions)
         options.autoTrackEventType = .init(arrayLiteral: [.eventTypeAppClick,.eventTypeAppStart,.eventTypeAppEnd,.eventTypeAppViewScreen])
         options.maxCacheSize = 20000
@@ -125,13 +125,13 @@ class DataAnlyticsManager: NSObject {
         
     }
     
-    @objc func loadConfigData() {
+    @objc public func loadConfigData() {
         DispatchQueue.global().asyncAfter(deadline: .now() + 1) {
             self.config.loadData()
         }
     }
     
-    @objc func cl_currentCtr() -> UIViewController? {
+    @objc public func cl_currentCtr() -> UIViewController? {
         return sensors.currentViewController()
     }
         
@@ -174,11 +174,11 @@ class DataAnlyticsManager: NSObject {
     }
     
     //MARK: -- handler url
-    @objc func canHandle(_ url: URL) -> Bool {
+    @objc public func canHandle(_ url: URL) -> Bool {
         return sensors.canHandle(url)
     }
     
-    @objc func handleSchemeUrl(_ url: URL) -> Bool {
+    @objc public func handleSchemeUrl(_ url: URL) -> Bool {
         return sensors.handleSchemeUrl(url)
     }
 

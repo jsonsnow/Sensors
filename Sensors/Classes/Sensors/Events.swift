@@ -9,7 +9,7 @@
 import Foundation
 import SensorsAnalyticsSDK
 
-@objc protocol EventProtocl: NSObjectProtocol {
+@objc public protocol EventProtocl: NSObjectProtocol {
     var name: NSString {get set}
     var props: NSDictionary? { get set}
     func send() -> Void
@@ -17,9 +17,9 @@ import SensorsAnalyticsSDK
 
 
 public class BaseEvent: NSObject, EventProtocl {
-    var name: NSString = ""
+    public var name: NSString = ""
     
-    var props: NSDictionary?
+    public var props: NSDictionary?
     
     public func send() {
         DataAnlyticsManager.anlytic.wsxc_trachEventWith(self)
@@ -33,14 +33,14 @@ public class LoginEvent: BaseEvent {
         DataAnlyticsManager.anlytic.wsxc_trachEventWith(self)
     }
     
-    override var name: NSString {
+    public override var name: NSString {
         get {
            return "login_in"
         }
         set {}
     }
     
-    override var props: NSDictionary? {
+    public override var props: NSDictionary? {
         get {
             return ["login_method": login_method,
                     "shop_name": shop_name]
@@ -52,7 +52,7 @@ public class LoginEvent: BaseEvent {
     var shop_name: String = ""
     var loginId: String = ""
     
-    @objc init(method: String, shop_name: String, loginId: String) {
+    @objc public init(method: String, shop_name: String, loginId: String) {
         self.login_method = method
         self.loginId = loginId
         self.shop_name = shop_name
@@ -61,7 +61,7 @@ public class LoginEvent: BaseEvent {
 
 public class SearchEvent: BaseEvent {
     
-    override var name: NSString {
+    public override var name: NSString {
         get {
             return "search"
         }
@@ -69,7 +69,7 @@ public class SearchEvent: BaseEvent {
        
     }
     
-    override var props: NSDictionary? {
+    public override var props: NSDictionary? {
         get {
             return [
                 "$title": "个人主页",
@@ -80,16 +80,16 @@ public class SearchEvent: BaseEvent {
         set {}
     }
     
-    @objc var title: String?
-    @objc var search_method: String?
-    @objc var key_word: String?
-    @objc var has_result: Bool = false
-    @objc var use_digitalwatermark: Bool = false
+    @objc public var title: String?
+    @objc public var search_method: String?
+    @objc public var key_word: String?
+    @objc public var has_result: Bool = false
+    @objc public var use_digitalwatermark: Bool = false
 }
 
 public class ErrorPagesEvent: BaseEvent {
     
-    override var name: NSString {
+    public override var name: NSString {
         get {
             return "errorpages"
         }
@@ -97,7 +97,7 @@ public class ErrorPagesEvent: BaseEvent {
        
     }
     
-    override var props: NSDictionary? {
+    public override var props: NSDictionary? {
         get {
             return [
                 "$title": title ?? "",
@@ -110,20 +110,20 @@ public class ErrorPagesEvent: BaseEvent {
         set {}
     }
     
-    @objc var title: String?
-    @objc var url_path: String?
-    @objc var loadtime: String?
+    @objc public var title: String?
+    @objc public var url_path: String?
+    @objc public var loadtime: String?
 }
 
 public class DigitalWatermarkAddEvent: BaseEvent {
-    override var name: NSString {
+    public override var name: NSString {
         get {
             return "digital_watermark_add"
         }
         set {}
     }
     
-    override var props: NSDictionary? {
+    public override var props: NSDictionary? {
         get {
             return ["add_scene": add_scene,
                     "image_total": image_total,
@@ -234,14 +234,14 @@ public class DigitalWatermarkAddEvent: BaseEvent {
 
 public class EditTagsEvent: BaseEvent {
 
-    override var name: NSString {
+    public override var name: NSString {
         get {
             return "edit_tags"
         }
         set {}
     }
     
-    override var props: NSDictionary? {
+    public override var props: NSDictionary? {
         get {
             return ["edit_type": edit_type,
                     "tag_value": tag_value]
@@ -252,7 +252,7 @@ public class EditTagsEvent: BaseEvent {
     var edit_type: String
     var tag_value: [String]
     
-    @objc init(tag_value: [String]) {
+    @objc public init(tag_value: [String]) {
         self.edit_type = "标签"
         self.tag_value = tag_value
     }
@@ -260,14 +260,14 @@ public class EditTagsEvent: BaseEvent {
 
 public class ShareEvent: BaseEvent {
     
-    override var name: NSString {
+    public override var name: NSString {
         get {
             return "share"
         }
         set {}
     }
     
-    override var props: NSDictionary? {
+    public override var props: NSDictionary? {
         get {
             return ["share_method": share_method ?? "",
                     "$screen_name": screen_name ?? "",
@@ -277,12 +277,12 @@ public class ShareEvent: BaseEvent {
         set {}
     }
     
-    @objc var share_method: String?
-    @objc var screen_name: String?
-    @objc var title: String?
-    @objc var share_content: String?
+    @objc public var share_method: String?
+    @objc public var screen_name: String?
+    @objc public var title: String?
+    @objc public var share_content: String?
     
-    @objc static func clickShareEvent(title: String, name: String) -> ShareEvent {
+    @objc static public func clickShareEvent(title: String, name: String) -> ShareEvent {
         let event = ShareEvent.init()
         event.title = title
         event.screen_name = name
@@ -293,7 +293,7 @@ public class ShareEvent: BaseEvent {
 
 public class PushViewEvent: BaseEvent {
     
-    override var props: NSDictionary? {
+    public override var props: NSDictionary? {
         get {
             return ["push_content": push_content ?? "",
                     "push_content_id": push_content_id ?? "",
@@ -306,26 +306,26 @@ public class PushViewEvent: BaseEvent {
         set {}
     }
     
-    override var name: NSString {
+    public override var name: NSString {
         get {
            return "push_view"
         }
         set {}
     }
     
-    @objc var push_content: String?
-    @objc var push_content_id: String?
-    @objc var page_redirect: String?
-    @objc var segmentation_name: String?
-    @objc var push_type: String?
-    @objc var pushID: String?
-    @objc var push_aim: String?
+    @objc public var push_content: String?
+    @objc public var push_content_id: String?
+    @objc public var page_redirect: String?
+    @objc public var segmentation_name: String?
+    @objc public var push_type: String?
+    @objc public var pushID: String?
+    @objc public var push_aim: String?
     
 }
 
 public class PushClickEvnet: BaseEvent {
     
-    override var props: NSDictionary? {
+    public override var props: NSDictionary? {
         get {
             return ["push_content": push_content ?? "",
                     "push_content_id": push_content_id ?? "",
@@ -339,25 +339,25 @@ public class PushClickEvnet: BaseEvent {
         
     }
     
-    override var name: NSString {
+    public override var name: NSString {
         get {
            return "push_click"
         }
         set {}
     }
     
-    @objc var push_content: String?
-    @objc var push_content_id: String?
-    @objc var page_redirect: String?
-    @objc var segmentation_name: String?
-    @objc var push_type: String?
-    @objc var pushID: String?
-    @objc var push_aim: String?
+    @objc public var push_content: String?
+    @objc public var push_content_id: String?
+    @objc public var page_redirect: String?
+    @objc public var segmentation_name: String?
+    @objc public var push_type: String?
+    @objc public var pushID: String?
+    @objc public var push_aim: String?
 }
 
 public class PrintDeliverEvent: BaseEvent {
     
-    override var name: NSString {
+    public override var name: NSString {
         get {
             return "print_deliver"
         }
@@ -365,7 +365,7 @@ public class PrintDeliverEvent: BaseEvent {
        
     }
     
-    override var props: NSDictionary? {
+    public override var props: NSDictionary? {
         get {
             return ["print_status": print_status,
                     "print_fail_reason": print_fail_reason
@@ -377,7 +377,7 @@ public class PrintDeliverEvent: BaseEvent {
     var print_status: Bool = true
     var print_fail_reason: String
     
-    @objc init(print_status: Bool = true) {
+    @objc public init(print_status: Bool = true) {
         if !print_status {
             assert(false, "print_status must be true")
         }
@@ -385,14 +385,14 @@ public class PrintDeliverEvent: BaseEvent {
         self.print_status = true
     }
     
-    @objc init(print_fail_reason: String) {
+    @objc public init(print_fail_reason: String) {
         self.print_status = false
         self.print_fail_reason = print_fail_reason
     }
 }
 
 public class AddImgEvent: BaseEvent {
-    override var name: NSString {
+    public override var name: NSString {
         get {
             return "add_img"
         }
@@ -400,7 +400,7 @@ public class AddImgEvent: BaseEvent {
         
     }
     
-    override var props: NSDictionary? {
+    public override var props: NSDictionary? {
         get {
             return ["is_word": is_word,
                     "is_pic": is_pic,
@@ -418,28 +418,28 @@ public class AddImgEvent: BaseEvent {
         set {}
     }
     
-    @objc var is_word: Bool = false
-    @objc var is_pic: Bool = false
-    @objc var is_video: Bool = false
-    @objc var is_link: Bool = false 
-    @objc var change_price: Bool = false
-    @objc var add_img_method: String?
-    @objc var title: String?
-    @objc var is_photograph: Bool = false
-    @objc var other_product_information: Bool = false
-    @objc var product_imgs: NSNumber?
+    @objc public var is_word: Bool = false
+    @objc public var is_pic: Bool = false
+    @objc public var is_video: Bool = false
+    @objc public var is_link: Bool = false
+    @objc public var change_price: Bool = false
+    @objc public var add_img_method: String?
+    @objc public var title: String?
+    @objc public var is_photograph: Bool = false
+    @objc public var other_product_information: Bool = false
+    @objc public var product_imgs: NSNumber?
     
 }
 
 public class ProfileEvent: BaseEvent {
-    override var name: NSString {
+    public override var name: NSString {
         get {
             return "profile"
         }
         set{}
     }
     
-    override var props: NSDictionary? {
+    public override var props: NSDictionary? {
         get {
             return nil
         }
@@ -448,14 +448,14 @@ public class ProfileEvent: BaseEvent {
 }
 
 public class BaseClickEvent: BaseEvent {
-    override var name: NSString {
+    public override var name: NSString {
         get {
             return eventName! as NSString
         }
         set{}
     }
     
-    override var props: NSDictionary? {
+    public override var props: NSDictionary? {
         get {
             return ["wsxc_title": title!];
         }
@@ -490,7 +490,7 @@ public class ClickSelectTagEvent: BaseClickEvent {
 }
 
 public class ClickWhoCanSeeEvent: BaseClickEvent {
-    override var props: NSDictionary? {
+    public override var props: NSDictionary? {
         get {
             return ["wsxc_title": title!,
                     "price_type": price_type ?? ""];
@@ -506,7 +506,7 @@ public class ClickWhoCanSeeEvent: BaseClickEvent {
 }
 
 public class ClickExpandProductCharacterEvent: BaseClickEvent {
-    override var props: NSDictionary? {
+    public override var props: NSDictionary? {
         get {
             return ["wsxc_title": title!,
                     "open_or_not": open_or_not];
@@ -553,7 +553,7 @@ public class ClickEnterProductEvent: BaseClickEvent {
 public class ClickShareProfileEvent: BaseClickEvent {
     
     @objc public var  share_entrance: String?
-    override var props: NSDictionary? {
+    public override var props: NSDictionary? {
         get {
             return ["share_entrance": share_entrance ?? ""];
         }
@@ -569,14 +569,14 @@ public class ClickShareProfileEvent: BaseClickEvent {
 }
 
 public class ShareProfileEvent: BaseEvent {
-    override var name: NSString {
+    public override var name: NSString {
         get {
             return "share_profile"
         }
         set{}
     }
     
-    override var props: NSDictionary? {
+    public override var props: NSDictionary? {
         get {
             return ["profile_share_method": profile_share_method ?? "",
                     "share_entrance": share_entrance ?? ""];
@@ -602,14 +602,14 @@ public class ShareProfileEvent: BaseEvent {
 }
 
 public class ClickCatalogueAndTagEvent: BaseClickEvent {
-    override init(title: String) {
+    override public init(title: String) {
         super.init(title: title)
         self.eventName = "catalogue_and_tag"
     }
 }
 
 public class ClickContactTaEvent: BaseClickEvent {
-    override var props: NSDictionary? {
+    public override var props: NSDictionary? {
         get {
             return ["contact_type": contact_type ?? ""];
         }
@@ -617,7 +617,7 @@ public class ClickContactTaEvent: BaseClickEvent {
     }
     
     @objc var contact_type: String?
-    @objc init(type: String?) {
+    @objc public init(type: String?) {
         super.init(title: "")
         self.contact_type = type
         self.eventName = "contact_ta"
@@ -625,14 +625,14 @@ public class ClickContactTaEvent: BaseClickEvent {
 }
 
 public class ClickForwardALotEvent: BaseClickEvent {
-    override init(title: String) {
+    override public init(title: String) {
         super.init(title: title)
         self.eventName = "forward_a_lot"
     }
 }
 
 public class NetworkDetectionEvent: BaseEvent {
-    override var props: NSDictionary? {
+    public override var props: NSDictionary? {
         get {
             return ["is_LocalDNS": is_LocalDNS,
                     "is_Ping": is_Ping,
@@ -642,7 +642,7 @@ public class NetworkDetectionEvent: BaseEvent {
         
     }
     
-    override var name: NSString {
+    public override var name: NSString {
         get {
            return "NetworkDetection"
         }
@@ -655,7 +655,7 @@ public class NetworkDetectionEvent: BaseEvent {
 }
 
 public class DnsFixedEvent: BaseEvent {
-    override var props: NSDictionary? {
+    public override var props: NSDictionary? {
         get {
             return ["is_implement": is_implement,
                     "is_success": is_success]
@@ -664,7 +664,7 @@ public class DnsFixedEvent: BaseEvent {
         
     }
     
-    override var name: NSString {
+    public override var name: NSString {
         get {
            return "DnsFixed"
         }
